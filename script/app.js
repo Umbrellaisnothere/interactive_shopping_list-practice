@@ -16,8 +16,8 @@ function createElement(element) {
      return document.querySelector(selector);
  }
  
- function listener(element, event, callback) {
-     return element.addEventListener;
+ function listen(element, event, callback) {
+     return element.addEventListener(event, callback);
  }
  
  function addAttribute(element, attribute, content) {
@@ -28,9 +28,10 @@ function createElement(element) {
  
  const ol = select('ol');
  
- listener(document, 'DOMContentLoaded', displayItems);
+ listen(document, 'DOMContentLoaded', displayItems);
  
  function displayItems() {
+    ol.innerHTML = '';
      shoppingList.forEach(createAListItem);
  }
  
@@ -38,4 +39,17 @@ function createElement(element) {
      const li = createAListItem('li');
      addText(li, item);
      appendChild(li, ol);
+ }
+
+ const form = select('form');
+ listen(form, 'submit', addItem);
+
+ function addItem(event) {
+    event.preventDefault();
+    
+    shoppingList.push(event.target(0),value);
+
+    console.log(shoppingList);
+    
+    displayItems();
  }
